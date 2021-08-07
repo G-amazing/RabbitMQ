@@ -10,6 +10,8 @@ public class Consumer01 {
 
     public static void main(String[] args) throws Exception{
         Channel channel = RabbitMqUtils.getChannel();
+        // 设置不公平分发
+        channel.basicQos(1);
         // 接受消息
         channel.basicConsume(
                 QUEUE_NAME,
@@ -22,5 +24,6 @@ public class Consumer01 {
                 },
                 (consumerTag)-> System.out.println("消息消费被中断")
         );
+        System.out.println("Consumer01启动成功，处理速度为1s");
     }
 }
